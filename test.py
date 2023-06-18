@@ -407,7 +407,11 @@ if __name__ == '__main__':
     # print("请输入想说的话:")
     # test_text = input()
     # predict(test_text)
-    text = list(pd.read_csv('processed.csv').content)
+    csv = pd.read_csv('processed.csv')
+    text = list(csv.content)
     result = predict_batch(text)
-    with open('results.txt', "w", encoding="utf8") as f:
-        f.writelines("\n".join(result))
+    print(result[:10])
+    csv['emotion'] = result
+    csv.to_csv('final_data.csv', index=False)
+    # with open('results.txt', "w", encoding="utf8") as f:
+    #     f.writelines("\n".join(result))
